@@ -12,7 +12,6 @@ import com.example.portfolio.repository.JpaRepository;
 public class ProfileService {	
 	
 	private final JpaRepository jpaRepository;
-//	private  Profile profile;
 	public ProfileService(JpaRepository jpaRepository) {
 		this.jpaRepository=jpaRepository;
 	}
@@ -44,5 +43,12 @@ public class ProfileService {
 			existingProfile.setSkills(profile.getSkills());
 		}
 		return jpaRepository.save(existingProfile) ;
+	}
+	public Profile delete(String id) {
+		Optional<Profile> optinalProfile =  jpaRepository.findById(id);
+		if (optinalProfile.isPresent()) {			
+			jpaRepository.deleteById(id);
+		}
+		return optinalProfile.get();
 	}
 }
